@@ -44,23 +44,28 @@
         <Editor
             Grid.Row="1"
             Grid.Column="0"
-            Text="{Binding List1.Value}" />
+            Text="{Binding List1.Value}"
+            TextChanged="EditorList1_TextChanged" />
         <Editor
             Grid.Row="1"
             Grid.Column="1"
-            Text="{Binding List2.Value}" />
+            Text="{Binding List2.Value}"
+            TextChanged="EditorList2_TextChanged" />
         <Editor
             Grid.Row="1"
             Grid.Column="2"
-            Text="{Binding ListInBooth.Value}" />
+            Text="{Binding ListInBooth.Value}"
+            TextChanged="EditorListInBooth_TextChanged" />
         <Editor
             Grid.Row="1"
             Grid.Column="3"
-            Text="{Binding ListInList1Only.Value}" />
+            Text="{Binding ListInList1Only.Value}"
+            TextChanged="EditorListInList1Only_TextChanged" />
         <Editor
             Grid.Row="1"
             Grid.Column="4"
-            Text="{Binding ListInList2Only.Value}" />
+            Text="{Binding ListInList2Only.Value}"
+            TextChanged="EditorListInList2Only_TextChanged" />
         <Label
             Grid.Row="2"
             Grid.Column="0"
@@ -76,11 +81,11 @@
         <Label
             Grid.Row="2"
             Grid.Column="3"
-            Text="{Binding CountInList1Only.Value}" />
+            Text="{Binding CountListInList1Only.Value}" />
         <Label
             Grid.Row="2"
             Grid.Column="4"
-            Text="{Binding CountInList2Only.Value}" />
+            Text="{Binding CountListInList2Only.Value}" />
         <Button
             Grid.Row="3"
             Grid.Column="0"

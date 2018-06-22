@@ -18,14 +18,12 @@ namespace ListCompare
             public BindingProperty<string> ListInBooth { get; set; } = new BindingProperty<string>().Default("");
             public BindingProperty<string> ListInList1Only { get; set; } = new BindingProperty<string>().Default("");
             public BindingProperty<string> ListInList2Only { get; set; } = new BindingProperty<string>().Default("");
-            public BindingProperty<string> List1NotInList2 { get; set; } = new BindingProperty<string>().Default("");
 
             public BindingProperty<int> CountList1 { get; set; } = new BindingProperty<int>();
             public BindingProperty<int> CountList2 { get; set; } = new BindingProperty<int>();
             public BindingProperty<int> CountListInBooth { get; set; } = new BindingProperty<int>();
-            public BindingProperty<int> CountInList1Only { get; set; } = new BindingProperty<int>();
-            public BindingProperty<int> CountInList2Only { get; set; } = new BindingProperty<int>();
-            public BindingProperty<int> CountList1NotInList2 { get; set; } = new BindingProperty<int>();
+            public BindingProperty<int> CountListInList1Only { get; set; } = new BindingProperty<int>();
+            public BindingProperty<int> CountListInList2Only { get; set; } = new BindingProperty<int>();
 
             ICommand _CommandCompare = null;
 
@@ -35,50 +33,65 @@ namespace ListCompare
                 {
                     return _CommandCompare ?? (_CommandCompare = new Command(() =>
                     {
-                        Clear(false);
-                        CheckLineFeed(List1.Value, true);
-                        CheckLineFeed(List2.Value);
-
-                        var list1 = TextToList(List1.Value);
-                        var list2 = TextToList(List2.Value);
-
-                        var listInBooth = new List<string>();
-                        var listInList1Only = new List<string>();
-                        var listInList2Only = new List<string>();
-
-                        var list1NotInList2 = new List<string>();
-
-                        foreach (var item1 in list1)
-                        {
-                            if (list2.Contains(item1))
-                                listInBooth.Add(item1);
-                        }
-                        ListInBooth.Value = ListToText(listInBooth);
-
-                        foreach (var item1 in list1)
-                        {
-                            if (!list2.Contains(item1))
-                                listInList1Only.Add(item1);
-                        }
-                        ListInList1Only.Value = ListToText(listInList1Only);
-
-                        foreach (var item2 in list2)
-                        {
-                            if (!list1.Contains(item2))
-                                listInList2Only.Add(item2);
-                        }
-                        ListInList2Only.Value = ListToText(listInList2Only);
-
-                        CountList1.Value = list1.Count;
-                        CountList2.Value = list2.Count;
-                        CountListInBooth.Value = listInBooth.Count;
-                        CountInList1Only.Value = listInList1Only.Count;
-                        CountInList2Only.Value = listInList2Only.Count;
-
-                        CountList1NotInList2.Value = list1NotInList2.Count;
+                        Compare();
                         RefreshAll();
                     }));
                 }
+            }
+
+            void Compare()
+            {
+                Clear(false);
+                CheckLineFeed(List1.Value, true);
+                CheckLineFeed(List2.Value);
+
+                var list1 = TextToList(List1.Value);
+                List1.Value = ListToText(list1);
+
+                var list2 = TextToList(List2.Value);
+                List2.Value = ListToText(list2);
+
+                var listInBooth = new List<string>();
+                var listInList1Only = new List<string>();
+                var listInList2Only = new List<string>();
+
+                foreach (var item1 in list1)
+                {
+                    if (list2.Contains(item1))
+                        listInBooth.Add(item1);
+                }
+                ListInBooth.Value = ListToText(listInBooth);
+
+                foreach (var item1 in list1)
+                {
+                    if (!list2.Contains(item1))
+                        listInList1Only.Add(item1);
+                }
+                ListInList1Only.Value = ListToText(listInList1Only);
+
+                foreach (var item2 in list2)
+                {
+                    if (!list1.Contains(item2))
+                        listInList2Only.Add(item2);
+                }
+                ListInList2Only.Value = ListToText(listInList2Only);
+            }
+
+            const char Splitter = '\x01';
+            List<string> TextToList(string text)
+            {
+                if (string.IsNullOrEmpty(text))
+                    return new List<string>();
+                var result = new List<string>();
+                foreach (var t in text.Replace(LineFeed, $"{Splitter}").Split(Splitter))
+                    if (!string.IsNullOrEmpty(t))
+                        result.Add(t);
+                return result;
+            }
+
+            string ListToText(List<string> list)
+            {
+                return string.Join(LineFeed, list);
             }
 
             ICommand _CommandClear = null;
@@ -93,19 +106,6 @@ namespace ListCompare
                         RefreshAll();
                     }));
                 }
-            }
-
-            void Clear(bool all)
-            {
-                if (all)
-                {
-                    List1.Value = "";
-                    List2.Value = "";
-                }
-                ListInBooth.Value = "";
-                ListInList1Only.Value = "";
-                ListInList2Only.Value = "";
-                List1NotInList2.Value = "";
             }
 
             string LineFeed = null;
@@ -127,21 +127,23 @@ namespace ListCompare
                     }
             }
 
-            const char Splitter = '\x01';
-            List<string> TextToList(string text)
+            void Clear(bool all)
             {
-                if (string.IsNullOrEmpty(text))
-                    return new List<string>();
-                var result = new List<string>();
-                foreach (var t in text.Replace(LineFeed, $"{Splitter}").Split(Splitter))
-                    if (!string.IsNullOrEmpty(t))
-                        result.Add(t);
-                return result;
+                if (all)
+                {
+                    List1.Value = "";
+                    List2.Value = "";
+                }
+                ListInBooth.Value = "";
+                ListInList1Only.Value = "";
+                ListInList2Only.Value = "";
             }
 
-            string ListToText(List<string> list)
+            public void EventCalcListCount(BindingProperty<string> text, BindingProperty<int> count)
             {
-                return string.Join(LineFeed, list);
+                CheckLineFeed(text.Value, true);
+                var list1 = TextToList(text.Value);
+                count.Value = list1.Count;
             }
         }
         public BindingData Data { get; set; }
@@ -149,9 +151,33 @@ namespace ListCompare
         {
             InitializeComponent();
             BindingContext = Data = new BindingData();
-            Data.List1.Value = "1\r\n2\r\n";
+#if DEBUG
+            Data.List1.Value = "1\r\n2\r\n4\r\n";
             Data.List2.Value = "1\r\n2\r\n3\r\n";
-
+#endif
         }
+
+        private void EditorList1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Data.EventCalcListCount(Data.List1, Data.CountList1);
+        }
+        private void EditorList2_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Data.EventCalcListCount(Data.List2, Data.CountList2);
+        }
+        private void EditorListInBooth_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Data.EventCalcListCount(Data.ListInBooth, Data.CountListInBooth);
+        }
+
+        private void EditorListInList1Only_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Data.EventCalcListCount(Data.ListInList1Only, Data.CountListInList1Only);
+        }
+        private void EditorListInList2Only_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Data.EventCalcListCount(Data.ListInList2Only, Data.CountListInList2Only);
+        }
+
     }
 }
