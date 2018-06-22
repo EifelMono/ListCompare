@@ -91,13 +91,25 @@
             Grid.Column="0"
             Grid.ColumnSpan="2"
             Command="{Binding CommandCompare}"
-            Text="Compare" />
+            Text="Compare">
+            <Button.Triggers>
+                <EventTrigger Event="Clicked">
+                    <local:ExpandButtonTriggerAction />
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
         <Button
             Grid.Row="3"
             Grid.Column="3"
             Grid.ColumnSpan="2"
             Command="{Binding CommandClear}"
-            Text="Clear" />
+            Text="Clear">
+            <Button.Triggers>
+                <EventTrigger Event="Clicked">
+                    <local:ExpandButtonTriggerAction />
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
     </Grid>
 
 </ContentPage>

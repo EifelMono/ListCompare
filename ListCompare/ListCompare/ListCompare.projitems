@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)EifelMono.QuickButDirty.Binding\BindingExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EifelMono.QuickButDirty.Binding\BindingProperty.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EifelMono.QuickButDirty.Binding\IBindingClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExpandButtonTriggerAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
