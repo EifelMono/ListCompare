@@ -1,0 +1,12 @@
+﻿^ContentPage {
+    background-color: #808080;
+    padding: 15;
+}
+
+^Label {
+    margin: 5;
+}
+
+^Button {
+    margin: 5;
+}

@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ListCompare.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ListCompare">
+    <ContentPage.Resources>
+        <StyleSheet Source="Pages.css" />
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label
+            Grid.Row="0"
+            Grid.Column="0"
+            Text="List1" />
+        <Label
+            Grid.Row="0"
+            Grid.Column="1"
+            Text="List2" />
+        <Label
+            Grid.Row="0"
+            Grid.Column="2"
+            Text="In Booth" />
+        <Label
+            Grid.Row="0"
+            Grid.Column="3"
+            Text="In List1 only" />
+        <Label
+            Grid.Row="0"
+            Grid.Column="4"
+            Text="In List2 only" />
+        <Label
+            Grid.Row="0"
+            Grid.Column="5"
+            Text="List1 not in List2" />
+
+        <Editor
+            Grid.Row="1"
+            Grid.Column="0"
+            Text="{Binding List1.Value}" />
+        <Editor
+            Grid.Row="1"
+            Grid.Column="1"
+            Text="{Binding List2.Value}" />
+        <Editor
+            Grid.Row="1"
+            Grid.Column="2"
+            Text="{Binding ListInBooth.Value}" />
+        <Editor
+            Grid.Row="1"
+            Grid.Column="3"
+            Text="{Binding ListInList1Only.Value}" />
+        <Editor
+            Grid.Row="1"
+            Grid.Column="4"
+            Text="{Binding ListInList2Only.Value}" />
+        <Editor
+            Grid.Row="1"
+            Grid.Column="5"
+            Text="{Binding List1NotInList2.Value}" />
+        <Label
+            Grid.Row="2"
+            Grid.Column="0"
+            Text="{Binding CountList1.Value}" />
+        <Label
+            Grid.Row="2"
+            Grid.Column="1"
+            Text="{Binding CountList2.Value}" />
+        <Label
+            Grid.Row="2"
+            Grid.Column="2"
+            Text="{Binding CountListInBooth.Value}" />
+        <Label
+            Grid.Row="2"
+            Grid.Column="3"
+            Text="{Binding CountInList1Only.Value}" />
+        <Label
+            Grid.Row="2"
+            Grid.Column="4"
+            Text="{Binding CountInList2Only.Value}" />
+        <Label
+            Grid.Row="2"
+            Grid.Column="5"
+            Text="{Binding CountList1NotInList2.Value}" />
+        <Button
+            Grid.Row="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Command="{Binding CommandCompare}"
+            Text="Compare" />
+        <Button
+            Grid.Row="3"
+            Grid.Column="2"
+            Grid.ColumnSpan="2"
+            Command="{Binding CommandClear}"
+            Text="Clear" />
+    </Grid>
+
+</ContentPage>
