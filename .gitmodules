@@ -1,0 +1,3 @@
+[submodule "EifelMono.Core"]
+	path = EifelMono.Core
+	url = https://github.com/EifelMono/EifelMono.Core.git

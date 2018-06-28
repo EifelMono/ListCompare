@@ -90,6 +90,12 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\EifelMono.Core\EifelMono.Core\EifelMono.Core.csproj">
+      <Project>{378c9ac1-8383-44a7-8ef1-5d87d6a2a3d0}</Project>
+      <Name>EifelMono.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\ListCompare\ListCompare.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

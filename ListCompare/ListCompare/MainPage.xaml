@@ -3,7 +3,8 @@
     x:Class="ListCompare.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:ListCompare">
+    xmlns:local="clr-namespace:ListCompare"
+    Title="{Binding Title}">
     <ContentPage.Resources>
         <StyleSheet Source="Pages.css" />
     </ContentPage.Resources>
@@ -44,48 +45,48 @@
         <Editor
             Grid.Row="1"
             Grid.Column="0"
-            Text="{Binding List1.Value}"
+            Text="{Binding List1}"
             TextChanged="EditorList1_TextChanged" />
         <Editor
             Grid.Row="1"
             Grid.Column="1"
-            Text="{Binding List2.Value}"
+            Text="{Binding List2}"
             TextChanged="EditorList2_TextChanged" />
         <Editor
             Grid.Row="1"
             Grid.Column="2"
-            Text="{Binding ListInBooth.Value}"
+            Text="{Binding ListInBooth}"
             TextChanged="EditorListInBooth_TextChanged" />
         <Editor
             Grid.Row="1"
             Grid.Column="3"
-            Text="{Binding ListInList1Only.Value}"
+            Text="{Binding ListInList1Only}"
             TextChanged="EditorListInList1Only_TextChanged" />
         <Editor
             Grid.Row="1"
             Grid.Column="4"
-            Text="{Binding ListInList2Only.Value}"
+            Text="{Binding ListInList2Only}"
             TextChanged="EditorListInList2Only_TextChanged" />
         <Label
             Grid.Row="2"
             Grid.Column="0"
-            Text="{Binding CountList1.Value}" />
+            Text="{Binding CountList1}" />
         <Label
             Grid.Row="2"
             Grid.Column="1"
-            Text="{Binding CountList2.Value}" />
+            Text="{Binding CountList2}" />
         <Label
             Grid.Row="2"
             Grid.Column="2"
-            Text="{Binding CountListInBooth.Value}" />
+            Text="{Binding CountListInBooth}" />
         <Label
             Grid.Row="2"
             Grid.Column="3"
-            Text="{Binding CountListInList1Only.Value}" />
+            Text="{Binding CountListInList1Only}" />
         <Label
             Grid.Row="2"
             Grid.Column="4"
-            Text="{Binding CountListInList2Only.Value}" />
+            Text="{Binding CountListInList2Only}" />
         <Button
             Grid.Row="3"
             Grid.Column="0"

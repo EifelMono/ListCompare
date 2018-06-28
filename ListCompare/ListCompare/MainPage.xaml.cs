@@ -1,9 +1,5 @@
-﻿using EifelMono.QuickButDirty.Binding;
-using System;
+﻿using EifelMono.Core.Binding;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -11,35 +7,31 @@ namespace ListCompare
 {
     public partial class MainPage : ContentPage
     {
-        public class BindingData : BindingClass
+        public class BindingData : BindingClass<MainPage>
         {
-            public BindingProperty<string> List1 { get; set; } = new BindingProperty<string>().Default("");
-            public BindingProperty<string> List2 { get; set; } = new BindingProperty<string>().Default("");
-            public BindingProperty<string> ListInBooth { get; set; } = new BindingProperty<string>().Default("");
-            public BindingProperty<string> ListInList1Only { get; set; } = new BindingProperty<string>().Default("");
-            public BindingProperty<string> ListInList2Only { get; set; } = new BindingProperty<string>().Default("");
-
+            public BindingProperty<string> Title { get; set; } = new BindingProperty<string>().SetValue("List Compare");
+            public BindingProperty<string> List1 { get; set; } = new BindingProperty<string>().SetValue("");
+            public BindingProperty<string> List2 { get; set; } = new BindingProperty<string>().SetValue("");
+            public BindingProperty<string> ListInBooth { get; set; } = new BindingProperty<string>().SetValue("");
+            public BindingProperty<string> ListInList1Only { get; set; } = new BindingProperty<string>().SetValue("");
+            public BindingProperty<string> ListInList2Only { get; set; } = new BindingProperty<string>().SetValue("");
             public BindingProperty<int> CountList1 { get; set; } = new BindingProperty<int>();
             public BindingProperty<int> CountList2 { get; set; } = new BindingProperty<int>();
             public BindingProperty<int> CountListInBooth { get; set; } = new BindingProperty<int>();
             public BindingProperty<int> CountListInList1Only { get; set; } = new BindingProperty<int>();
             public BindingProperty<int> CountListInList2Only { get; set; } = new BindingProperty<int>();
 
-            ICommand _CommandCompare = null;
-
+            private ICommand _CommandCompare = null;
             public ICommand CommandCompare
             {
-                get
-                {
-                    return _CommandCompare ?? (_CommandCompare = new Command(() =>
-                    {
-                        Compare();
-                        RefreshAll();
-                    }));
-                }
+                get => BindingCommand.New(_CommandCompare, () =>
+                       {
+                            Compare();
+                            RefreshAll();
+                        });
             }
 
-            void Compare()
+            private void Compare()
             {
                 Clear(false);
                 CheckLineFeed(List1.Value, true);
@@ -77,8 +69,8 @@ namespace ListCompare
                 ListInList2Only.Value = ListToText(listInList2Only);
             }
 
-            const char Splitter = '\x01';
-            List<string> TextToList(string text)
+            private const char Splitter = '\x01';
+            private List<string> TextToList(string text)
             {
                 if (string.IsNullOrEmpty(text))
                     return new List<string>();
@@ -89,27 +81,24 @@ namespace ListCompare
                 return result;
             }
 
-            string ListToText(List<string> list)
+            private string ListToText(List<string> list)
             {
                 return string.Join(LineFeed, list);
             }
 
-            ICommand _CommandClear = null;
-
+            private ICommand _CommandClear = null;
             public ICommand CommandClear
             {
-                get
+                get => BindingCommand.New(_CommandClear, () =>
                 {
-                    return _CommandClear ?? (_CommandClear = new Command(() =>
-                    {
-                        Clear(true);
-                        RefreshAll();
-                    }));
-                }
+                    Clear(true);
+                    RefreshAll();
+                });
             }
 
-            string LineFeed = null;
-            void CheckLineFeed(string text, bool init = false)
+            private string LineFeed = null;
+
+            private void CheckLineFeed(string text, bool init = false)
             {
                 if (init)
                     LineFeed = null;
@@ -127,7 +116,7 @@ namespace ListCompare
                     }
             }
 
-            void Clear(bool all)
+            private void Clear(bool all)
             {
                 if (all)
                 {
@@ -150,7 +139,7 @@ namespace ListCompare
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = Data = new BindingData();
+            BindingContext = Data = new BindingData { Owner = this };
 #if DEBUG
             Data.List1.Value = "1\r\n2\r\n4\r\n";
             Data.List2.Value = "1\r\n2\r\n3\r\n";
@@ -178,10 +167,5 @@ namespace ListCompare
         {
             Data.EventCalcListCount(Data.ListInList2Only, Data.CountListInList2Only);
         }
-
-       
-
     }
-
-   
 }

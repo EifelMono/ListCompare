@@ -16,20 +16,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)EifelMono.QuickButDirty.Binding\BindingClass.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)EifelMono.QuickButDirty.Binding\BindingCollection.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)EifelMono.QuickButDirty.Binding\BindingExtension.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)EifelMono.QuickButDirty.Binding\BindingProperty.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)EifelMono.QuickButDirty.Binding\IBindingClass.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExpandButtonTriggerAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)EifelMono.Core.Extension\PipeExtension.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)EifelMono.QuickButDirty.Binding\" />
-    <Folder Include="$(MSBuildThisFileDirectory)EifelMono.Core.Extension\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages.css" />
