@@ -45,12 +45,12 @@
         <Editor
             Grid.Row="1"
             Grid.Column="0"
-            Text="{Binding List1}"
+            Text="{Binding List1.Value}"
             TextChanged="EditorList1_TextChanged" />
         <Editor
             Grid.Row="1"
             Grid.Column="1"
-            Text="{Binding List2}"
+            Text="{Binding List2.Value}"
             TextChanged="EditorList2_TextChanged" />
         <Editor
             Grid.Row="1"
